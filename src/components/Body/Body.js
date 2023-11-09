@@ -4,6 +4,8 @@ import Shimmer from "../Shimmer/Shimmer";
 
 const Body = () => {
   const [restro, setrestro] = useState([]);
+  const [filteredrestro, setfilteredrestro] = useState([]);
+  const [searchText, setsearchText] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -18,14 +20,37 @@ const Body = () => {
     setrestro(
       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+
+    setfilteredrestro(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
-  if (restro.length === 0) {
-    return <Shimmer />;
-  }
-  return (
+  return restro?.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter">
+        <div className="search">
+          <input
+            type="text"
+            className="search-btn"
+            value={searchText}
+            onChange={(e) => {
+              setsearchText(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const filteredrestro = restro.filter((res) => {
+                return res.info?.name?.toLowerCase().includes(searchText);
+              });
+              setfilteredrestro(filteredrestro);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
@@ -38,9 +63,8 @@ const Body = () => {
           Top Rated Restraunts
         </button>
       </div>
-      {/* <div className="search">Search</div> */}
       <div className="res-container">
-        {restro.map((data) => {
+        {filteredrestro.map((data) => {
           return <RestrauntCard key={data.info.id} resData={data} />;
         })}
       </div>
