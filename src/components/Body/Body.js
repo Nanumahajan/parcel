@@ -7,16 +7,19 @@ const Body = () => {
   const [filteredrestro, setfilteredrestro] = useState([]);
   const [searchText, setsearchText] = useState("");
 
+  console.log("Data came (--)", filteredrestro);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7096702&lng=76.7142593&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
 
     const json = await data.json();
+    console.log(json);
     setrestro(
       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -55,7 +58,8 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             let filteredRestro = restro.filter((rest) => {
-              return rest.info.avgRating > 4;
+              console.log(rest, "kya");
+              return rest.info.avgRating > 3.8;
             });
             setrestro(filteredRestro);
           }}
@@ -64,7 +68,7 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredrestro.map((data) => {
+        {filteredrestro?.map((data) => {
           return <RestrauntCard key={data.info.id} resData={data} />;
         })}
       </div>
@@ -73,3 +77,4 @@ const Body = () => {
 };
 
 export default Body;
+// whenever state variable update react initiate reconcilliation cycle or it re-renders the whole component
