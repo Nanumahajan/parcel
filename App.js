@@ -4,6 +4,7 @@ import "./index.css";
 import Header from "./src/components/Header/Header";
 import Body from "./src/components/Body/Body";
 import Footer from "./src/components/Footer/Footer";
+import { createBrowserRouter } from "react-router-dom";
 
 const AppLayout = () => {
   return (
