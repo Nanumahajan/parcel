@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Header from "./src/components/Header/Header";
 import Body from "./src/components/Body/Body";
-import Footer from "./src/components/Footer/Footer";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import About from "./src/components/About/About";
 import Contact from "./src/components/Contact/Contact";
 import Error from "./src/components/Error/Error";
+import RestroMenu from "./src/components/RestroMenu/RestroMenu";
 
 const AppLayout = () => {
   return (
@@ -35,6 +35,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/restro/:resId",
+        element: <RestroMenu />,
       },
     ],
     errorElement: <Error />,

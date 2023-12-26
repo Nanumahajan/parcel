@@ -1,6 +1,7 @@
 import RestrauntCard from "../RestrauntCard/RestroCard";
 import { useEffect, useState } from "react";
 import Shimmer from "../Shimmer/Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restro, setrestro] = useState([]);
@@ -15,7 +16,7 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
 
     const json = await data.json();
@@ -68,9 +69,11 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredrestro?.map((data) => {
-          return <RestrauntCard key={data.info.id} resData={data} />;
-        })}
+        {filteredrestro?.map((data) => (
+          <Link key={data.info.id} to={"/restro/" + data.info.id}>
+            <RestrauntCard resData={data} />
+          </Link>
+        ))}
       </div>
     </div>
   );
