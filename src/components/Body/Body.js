@@ -1,7 +1,7 @@
 import RestrauntCard from "../RestrauntCard/RestroCard";
 import { useEffect, useState } from "react";
 import Shimmer from "../Shimmer/Shimmer";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Body = () => {
   const [restro, setrestro] = useState([]);
@@ -22,11 +22,11 @@ const Body = () => {
     const json = await data.json();
     console.log(json);
     setrestro(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
     setfilteredrestro(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -70,9 +70,9 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredrestro?.map((data) => (
-          <Link key={data.info.id} to={"/restro/" + data.info.id}>
+          <NavLink key={data.info.id} to={"/restro/" + data.info.id}>
             <RestrauntCard resData={data} />
-          </Link>
+          </NavLink>
         ))}
       </div>
     </div>
