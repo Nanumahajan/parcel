@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import Title from "./Title";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useUserStatus from "../../customHooks/useUserStatus";
 
 const Header = () => {
   const [btn, setbtn] = useState("Login");
+  const onlineStatus = useUserStatus();
 
   // if no dependency array useEffect will call at every re-render
   // if empty dependency array the ueEffect will call at only initial render(just once)
@@ -13,6 +15,7 @@ const Header = () => {
       <Title />
       <div className="nav-items">
         <ul>
+          <li>Status :{onlineStatus ? "online" : "offline"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>

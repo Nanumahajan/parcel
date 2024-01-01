@@ -2,6 +2,7 @@ import RestrauntCard from "../RestrauntCard/RestroCard";
 import { useEffect, useState } from "react";
 import Shimmer from "../Shimmer/Shimmer";
 import { NavLink } from "react-router-dom";
+import useUserStatus from "../../customHooks/useUserStatus";
 
 const Body = () => {
   const [restro, setrestro] = useState([]);
@@ -30,6 +31,11 @@ const Body = () => {
     );
   };
 
+  const onlineStatus = useUserStatus();
+  if (onlineStatus === false)
+    return (
+      <h1>Looks like you are offline check your internet and try again </h1>
+    );
   return restro?.length === 0 ? (
     <Shimmer />
   ) : (
