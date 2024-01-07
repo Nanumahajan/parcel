@@ -10,6 +10,7 @@ const Header = () => {
   // if no dependency array useEffect will call at every re-render
   // if empty dependency array the ueEffect will call at only initial render(just once)
   // if any value in dependency array then the useEffect will only be on change or update in aaray
+
   return (
     <div className="header">
       <Title />

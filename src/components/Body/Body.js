@@ -9,8 +9,6 @@ const Body = () => {
   const [filteredrestro, setfilteredrestro] = useState([]);
   const [searchText, setsearchText] = useState("");
 
-  console.log("Data came (--)", filteredrestro);
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,15 +19,15 @@ const Body = () => {
     );
 
     const json = await data.json();
-    console.log(json);
     setrestro(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
     setfilteredrestro(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+  // console.log("what happend ", setrestro);
 
   const onlineStatus = useUserStatus();
   if (onlineStatus === false)

@@ -4,3 +4,5 @@ if we use the principle of Single Responsibilty then our code will be more maint
 
 custom hooks 
 hooks are like a utility function or a normal functions 
+
+App-chunking / Code-Spliiting / Dynamic-Bundling /Lazy-Loading 
