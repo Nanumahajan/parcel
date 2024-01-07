@@ -1,13 +1,13 @@
 import RestrauntCard from "../RestrauntCard/RestroCard";
 import { useEffect, useState } from "react";
 import Shimmer from "../Shimmer/Shimmer";
+import { NavLink } from "react-router-dom";
+import useUserStatus from "../../customHooks/useUserStatus";
 
 const Body = () => {
   const [restro, setrestro] = useState([]);
   const [filteredrestro, setfilteredrestro] = useState([]);
   const [searchText, setsearchText] = useState("");
-
-  console.log("Data came (--)", filteredrestro);
 
   useEffect(() => {
     fetchData();
@@ -15,20 +15,25 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.7333148&lng=76.7794179&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
 
     const json = await data.json();
-    console.log(json);
     setrestro(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
     setfilteredrestro(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+  // console.log("what happend ", setrestro);
 
+  const onlineStatus = useUserStatus();
+  if (onlineStatus === false)
+    return (
+      <h1>Looks like you are offline check your internet and try again </h1>
+    );
   return restro?.length === 0 ? (
     <Shimmer />
   ) : (
@@ -68,9 +73,11 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredrestro?.map((data) => {
-          return <RestrauntCard key={data.info.id} resData={data} />;
-        })}
+        {filteredrestro?.map((data) => (
+          <NavLink key={data.info.id} to={"/restro/" + data.info.id}>
+            <RestrauntCard resData={data} />
+          </NavLink>
+        ))}
       </div>
     </div>
   );
